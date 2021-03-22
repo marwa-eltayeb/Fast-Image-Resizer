@@ -15,6 +15,7 @@ public class Main extends Application {
         primaryStage.setTitle("Fast Image Resizer");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.getIcons().add(new Image("file:src/sample/assets/icon.png"));
+        primaryStage.getScene().getStylesheets().add(getClass().getResource("stylesheet/application.css").toExternalForm());
         primaryStage.show();
     }
 
