@@ -1,8 +1,32 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<GridPane fx:controller="sample.Controller"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
-</GridPane>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <Button fx:id="btnBrowse" layoutX="27.0" layoutY="23.0" mnemonicParsing="false" text="Browse" />
+      <Label fx:id="lblOutputPath" layoutX="91.0" layoutY="23.0" prefHeight="25.0" prefWidth="233.0" text="Label" />
+      <ListView layoutX="27.0" layoutY="58.0" prefHeight="231.0" prefWidth="326.0" />
+      <Button layoutX="72.0" layoutY="333.0" mnemonicParsing="false" text="Delete" />
+      <Button layoutX="201.0" layoutY="333.0" mnemonicParsing="false" text="Delete All" />
+      <Button layoutX="140.0" layoutY="403.0" mnemonicParsing="false" text="Resize" />
+      <AnchorPane fx:id="imageContainer" layoutX="374.0" layoutY="23.0" prefHeight="266.0" prefWidth="252.0">
+         <children>
+            <Label contentDisplay="CENTER" layoutX="57.0" layoutY="14.0" text="Preview Original" textAlignment="CENTER" />
+            <ImageView fx:id="imgPreview" fitHeight="117.0" fitWidth="226.0" layoutX="14.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" />
+            <Label layoutX="43.0" layoutY="166.0" text="Type:" />
+            <Label layoutX="42.0" layoutY="196.0" text="Size:" />
+            <Label layoutX="42.0" layoutY="228.0" text="Deminsion:" />
+         </children>
+      </AnchorPane>
+      <ComboBox layoutX="512.0" layoutY="308.0" prefHeight="25.0" prefWidth="124.0" promptText="Drawable" />
+      <ComboBox layoutX="374.0" layoutY="308.0" prefHeight="25.0" prefWidth="115.0" promptText="Default Sizes" />
+      <Label layoutX="374.0" layoutY="350.0" prefHeight="17.0" prefWidth="50.0" text="Height:" />
+      <TextField layoutX="438.0" layoutY="346.0" />
+      <Label layoutX="374.0" layoutY="394.0" text="Width:" />
+      <TextField layoutX="438.0" layoutY="390.0" />
+      <CheckBox layoutX="373.0" layoutY="438.0" mnemonicParsing="false" text="Maintain Aspect Ratio" />
+   </children>
+</AnchorPane>
