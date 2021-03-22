@@ -14,6 +14,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Fast Image Resizer");
         primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.getIcons().add(new Image("file:src/sample/assets/icon.png"));
         primaryStage.show();
     }
 
