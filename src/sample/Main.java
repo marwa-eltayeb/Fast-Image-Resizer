@@ -13,7 +13,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Fast Image Resizer");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, 650, 500));
         primaryStage.getIcons().add(new Image("file:src/sample/assets/icon.png"));
         primaryStage.getScene().getStylesheets().add(getClass().getResource("stylesheet/application.css").toExternalForm());
         primaryStage.show();
