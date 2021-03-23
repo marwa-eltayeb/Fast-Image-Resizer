@@ -1,10 +1,19 @@
 package sample;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Controller {
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class Controller implements Initializable {
 
     @FXML
     Button btnBrowse;
@@ -52,4 +61,12 @@ public class Controller {
     CheckBox cbRatio;
 
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Image img =new Image("file:src/sample/assets/preview.png");
+        imgPreview.setImage(img);
+
+        lstImagesList.setPlaceholder(new Label("Drag & drop your photos here\n      or click to add photos"));
+    }
 }
+
