@@ -2,14 +2,90 @@
    -fx-background-color: #3C3C3C;
 }
 
-
 .label{
-   -fx-text-fill: red;
-   -fx-background-color : #fff;
-   -fx-padding: 5 5 5 5;
+   -fx-text-fill: white;
+   -fx-background-color : #1E1E1E;
+   -fx-padding: 3 3 3 3;
+}
+
+#lbtHeight, #lbWidth{
+   -fx-text-fill: white;
+   -fx-background-color : #1E1E1E;
+   -fx-padding: 3 3 3 3;
+   -fx-border-color: black;
+   -fx-border-radius: 1;
+    -fx-border-width: 1;
+}
+
+#lblOutputPath{
+    -fx-font-size: 10px;
+    -fx-background-color : #4A4A4A;
+    -fx-border-color: gray;
+    -fx-border-radius: 1;
+    -fx-border-width: 1;
+    -fx-padding: 0 0 0 10; /* right */
+}
+
+#lbType, #lbSize, #lbDimen{
+   -fx-text-fill: gray;
+}
+
+.button{
+    -fx-text-fill: white;
+    -fx-background-color : #4A4A4A;
+    -fx-border-color: gray;
+}
+
+#btnResize{
+    -fx-font-size: 12px;
+    -fx-text-fill: red;
+    -fx-background-color : #4A4A4A;
+    -fx-border-color: gray;
+    -fx-font-weight: bold;
+}
+
+#editHeight, #editWidth{
+   -fx-background-color : #4A4A4A;
+   -fx-text-fill: white;
 }
 
 #imageContainer{
-   -fx-background-color: black;
+   -fx-background-color: #1E1E1E;
+}
+
+#lstImagesList{
+   -fx-background-color: #1E1E1E;
+}
+
+#cbRatio {
+    -fx-text-fill: white;
+    -fx-padding: 1 1 1 1;
+}
+
+#cbRatio > .box {
+    /* background color of unselected checkbox */
+    -fx-background-color: #1E1E1E;
+}
+
+#cbRatio:selected > .box > .mark {
+    /* modify mark color */
+    -fx-background-color: white;
+}
+
+.combo-box {
+    -fx-background-color: #333333;
+    -fx-border-color: gray;
+}
+
+.combo-box .arrow {
+    -fx-background-color: gray;
+}
+
+.combo-box-base .text{
+    -fx-fill: white;
+}
+
+.combo-box.list-cell {
+    -fx-background-color: #333333;
 }
 
