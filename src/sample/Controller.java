@@ -67,6 +67,19 @@ public class Controller implements Initializable {
         imgPreview.setImage(img);
 
         lstImagesList.setPlaceholder(new Label("Drag & drop your photos here\n      or click to add photos"));
+
+        String imageDimensions = (int)img.getHeight() + "x" + (int) img.getWidth();
+        lbDimen.setText(imageDimensions);
+
+        File file =new File("src/sample/assets/preview.png");
+        String fileName = file.getName();
+        String fileExtension = fileName.substring
+                (fileName.lastIndexOf(".") + 1, file.getName().length());
+        lbType.setText(fileExtension);
+
+        double bytes = file.length();
+        String fileSize = String.format("%.2f", bytes/1024) + " kb";
+        lbSize.setText(fileSize);
     }
 }
 
