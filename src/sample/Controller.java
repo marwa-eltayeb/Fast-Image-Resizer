@@ -105,6 +105,11 @@ public class Controller implements Initializable {
         lstImagesList.getItems().remove(selectedIndex);
     }
 
+    public void deleteAllImages(ActionEvent actionEvent) {
+        lstImagesList.getItems().removeAll
+                (lstImagesList.getItems());
+    }
+
     private void showImageDetails(String path){
         if(path != null) {
             Image img = new Image("file:" + path);
