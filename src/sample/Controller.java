@@ -110,6 +110,15 @@ public class Controller implements Initializable {
                 (lstImagesList.getItems());
     }
 
+    public void browse(ActionEvent actionEvent) {
+        DirectoryChooser directoryChooser = new DirectoryChooser
+                ();
+        File selectedFolder = directoryChooser.showDialog(null);
+        if(selectedFolder != null) {
+            lblOutputPath.setText(selectedFolder.getPath());
+        }
+    }
+
     private void showImageDetails(String path){
         if(path != null) {
             Image img = new Image("file:" + path);
