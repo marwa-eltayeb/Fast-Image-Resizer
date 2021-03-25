@@ -68,6 +68,9 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         lstImagesList.setPlaceholder(new Label("Drag & drop your photos here"));
+
+        String path = "src/sample/assets/preview.png";
+        showImageDetails(path);
     }
 
     @FXML
@@ -75,14 +78,6 @@ public class Controller implements Initializable {
         if(event.getDragboard().hasFiles()){
             event.acceptTransferModes(TransferMode.ANY);
         }
-    }
-
-    public void handleOnMouseClicked(MouseEvent mouseEvent) {
-        String selectedItem =  lstImagesList.getSelectionModel
-                ().getSelectedItem();
-        selectedIndex = lstImagesList.getSelectionModel
-                ().getSelectedIndex();
-        System.out.println(selectedItem);
     }
 
     @FXML
@@ -94,6 +89,38 @@ public class Controller implements Initializable {
             }
         } else{
             System.out.println("File is not valid");
+        }
+    }
+
+    public void handleOnMouseClicked(MouseEvent mouseEvent) {
+        String selectedItem =  lstImagesList.getSelectionModel
+                ().getSelectedItem();
+        selectedIndex = lstImagesList.getSelectionModel
+                ().getSelectedIndex();
+        System.out.println(selectedItem);
+        showImageDetails(selectedItem);
+    }
+
+    private void showImageDetails(String path){
+        if(path != null) {
+            Image img = new Image("file:" + path);
+            imgPreview.setImage(img);
+
+            String imageDimensions = (int) img.getHeight() + "x"
+                    + (int) img.getWidth();
+            lbDimen.setText(imageDimensions);
+
+            File file = new File(path);
+            String fileName = file.getName();
+            String fileExtension = fileName.substring
+                    (fileName.lastIndexOf(".") + 1, file.getName
+                            ().length());
+            lbType.setText(fileExtension);
+
+            double bytes = file.length();
+            String fileSize = String.format("%.2f", bytes / 1024)
+                    + " kb";
+            lbSize.setText(fileSize);
         }
     }
 
