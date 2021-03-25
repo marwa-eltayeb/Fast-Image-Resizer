@@ -63,6 +63,8 @@ public class Controller implements Initializable {
     @FXML
     CheckBox cbRatio;
 
+    private int selectedIndex;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         lstImagesList.setPlaceholder(new Label("Drag & drop your photos here"));
@@ -73,6 +75,14 @@ public class Controller implements Initializable {
         if(event.getDragboard().hasFiles()){
             event.acceptTransferModes(TransferMode.ANY);
         }
+    }
+
+    public void handleOnMouseClicked(MouseEvent mouseEvent) {
+        String selectedItem =  lstImagesList.getSelectionModel
+                ().getSelectedItem();
+        selectedIndex = lstImagesList.getSelectionModel
+                ().getSelectedIndex();
+        System.out.println(selectedItem);
     }
 
     @FXML
@@ -86,6 +96,7 @@ public class Controller implements Initializable {
             System.out.println("File is not valid");
         }
     }
+
 
 }
 
