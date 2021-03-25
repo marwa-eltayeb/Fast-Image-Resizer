@@ -101,6 +101,10 @@ public class Controller implements Initializable {
         showImageDetails(selectedItem);
     }
 
+    public void deleteImage(ActionEvent actionEvent) {
+        lstImagesList.getItems().remove(selectedIndex);
+    }
+
     private void showImageDetails(String path){
         if(path != null) {
             Image img = new Image("file:" + path);
@@ -123,7 +127,5 @@ public class Controller implements Initializable {
             lbSize.setText(fileSize);
         }
     }
-
-
 }
 
