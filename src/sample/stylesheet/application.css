@@ -2,6 +2,17 @@
    -fx-background-color: #3C3C3C;
 }
 
+#lstImagesList .list-cell {
+    -fx-background-color: #1E1E1E;
+    -fx-text-fill: #ffffff;
+
+}
+
+#lstImagesList .list-cell:focused {
+    -fx-background-color: #3b3b3b;
+}
+
+
 .label{
    -fx-text-fill: white;
    -fx-background-color : #1E1E1E;

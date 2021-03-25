@@ -4,19 +4,21 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane prefHeight="500.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <Button fx:id="btnBrowse" layoutX="27.0" layoutY="23.0" mnemonicParsing="false" text="Browse" />
       <Label fx:id="lblOutputPath" layoutX="91.0" layoutY="23.0" prefHeight="27.0" prefWidth="260.0" text="Output Path" />
-      <ListView fx:id="lstImagesList" layoutX="27.0" layoutY="58.0" prefHeight="231.0" prefWidth="326.0" />
+      <ListView fx:id="lstImagesList" layoutX="27.0" layoutY="58.0" onDragDropped="#handleDrop" onDragOver="#handleDragOver"  prefHeight="231.0" prefWidth="326.0" />
       <Button fx:id="btnDelete" layoutX="40.0" layoutY="334.0" mnemonicParsing="false" text="Delete" />
-      <Button fx:id="btnDeleteAll" layoutX="140.0" layoutY="334.0" mnemonicParsing="false" text="Delete All" />
+      <Button fx:id="btnDeleteAll" layoutX="140.0" layoutY="334.0" mnemonicParsing="false"  text="Delete All" />
       <Button fx:id="btnResize" layoutX="254.0" layoutY="334.0" mnemonicParsing="false" text="Resize" />
-      <AnchorPane fx:id="imageContainer" layoutX="374.0" layoutY="23.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="266.0" prefWidth="252.0">
+      <AnchorPane fx:id="imageContainer" layoutX="374.0" layoutY="23.0" prefHeight="266.0" prefWidth="252.0">
          <Label contentDisplay="CENTER" layoutX="83.0" layoutY="6.0" text="Preview Original" textAlignment="CENTER" />
-         <ImageView fx:id="imgPreview" fitHeight="117.0" fitWidth="200" layoutX="70.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@assets/preview.png" />
-         </ImageView>
+         <HBox alignment="CENTER" layoutX="27.0" layoutY="36.0" prefHeight="100.0" prefWidth="200.0">
+            <ImageView fx:id="imgPreview" fitHeight="117.0" fitWidth="200" layoutX="70.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@assets/preview.png" />
+            </ImageView>
+         </HBox>
          <Label layoutX="43.0" layoutY="166.0" text="Type:" />
          <Label layoutX="42.0" layoutY="196.0" text="Size:" />
          <Label layoutX="42.0" layoutY="228.0" text="Dimension:" />
@@ -29,6 +31,6 @@
       <Label fx:id="lbtHeight" layoutX="374.0" layoutY="346.0" prefHeight="25.0" prefWidth="55.0" text="Custom:" />
       <TextField fx:id="editHeight" layoutX="438.0" layoutY="346.0" prefHeight="25.0" prefWidth="75.0" promptText="height" />
       <TextField fx:id="editWidth" layoutX="533.0" layoutY="346.0" prefHeight="25.0" prefWidth="86.0" promptText="width" />
-      <CheckBox fx:id="cbRatio" layoutX="369.0" layoutY="395.0" mnemonicParsing="false" text="Maintain Aspect Ratio" />
+      <CheckBox fx:id="cbRatio" layoutX="374.0" layoutY="391.0" mnemonicParsing="false" text="Maintain Aspect Ratio" />
    </children>
 </AnchorPane>
