@@ -1,16 +1,19 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
+import javafx.stage.DirectoryChooser;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -60,26 +63,29 @@ public class Controller implements Initializable {
     @FXML
     CheckBox cbRatio;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Image img =new Image("file:src/sample/assets/preview.png");
-        imgPreview.setImage(img);
-
-        lstImagesList.setPlaceholder(new Label("Drag & drop your photos here\n      or click to add photos"));
-
-        String imageDimensions = (int)img.getHeight() + "x" + (int) img.getWidth();
-        lbDimen.setText(imageDimensions);
-
-        File file =new File("src/sample/assets/preview.png");
-        String fileName = file.getName();
-        String fileExtension = fileName.substring
-                (fileName.lastIndexOf(".") + 1, file.getName().length());
-        lbType.setText(fileExtension);
-
-        double bytes = file.length();
-        String fileSize = String.format("%.2f", bytes/1024) + " kb";
-        lbSize.setText(fileSize);
+        lstImagesList.setPlaceholder(new Label("Drag & drop your photos here"));
     }
+
+    @FXML
+    private void handleDragOver(DragEvent event){
+        if(event.getDragboard().hasFiles()){
+            event.acceptTransferModes(TransferMode.ANY);
+        }
+    }
+
+    @FXML
+    private void handleDrop(DragEvent event) {
+        List<File> files = event.getDragboard().getFiles();
+        if(files != null){
+            for (File file : files) {
+                lstImagesList.getItems().add(file.getAbsolutePath());
+            }
+        } else{
+            System.out.println("File is not valid");
+        }
+    }
+
 }
 
