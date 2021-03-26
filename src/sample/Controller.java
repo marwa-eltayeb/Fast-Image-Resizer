@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -64,6 +66,10 @@ public class Controller implements Initializable {
     @FXML
     CheckBox cbRatio;
 
+    ObservableList<String> listOfDirs = FXCollections.observableArrayList("drawable", "mipmap");
+    ObservableList<String> defaultSizes = FXCollections.observableArrayList("ldpi 36x36", "mdpi 48x48", "tvdpi 64x64", "hdpi 72x72", "xhdpi 96x96", "xxhdpi 144x144", "xxxhdpi 192x192" );
+
+
     private String defaultImagePath;
     private int selectedIndex;
 
@@ -73,6 +79,16 @@ public class Controller implements Initializable {
 
         defaultImagePath = "src/sample/assets/preview.png";
         showImageDetails(defaultImagePath);
+
+        comboDir.setItems(listOfDirs);
+        String selectedDir = comboDir.getValue();
+
+        comboSizes.setItems(defaultSizes);
+
+        String height = editHeight.getText();
+        String width = editWidth.getText();
+
+        boolean ifRatioSelected = cbRatio.isSelected();
     }
 
     @FXML
