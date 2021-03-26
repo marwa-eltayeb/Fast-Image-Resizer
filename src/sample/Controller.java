@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.stage.DirectoryChooser;
 
+import javax.lang.model.element.Element;
 import java.io.File;
 import java.net.URL;
 import java.util.List;
@@ -63,19 +64,20 @@ public class Controller implements Initializable {
     @FXML
     CheckBox cbRatio;
 
+    private String defaultImagePath;
     private int selectedIndex;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         lstImagesList.setPlaceholder(new Label("Drag & drop your photos here"));
 
-        String path = "src/sample/assets/preview.png";
-        showImageDetails(path);
+        defaultImagePath = "src/sample/assets/preview.png";
+        showImageDetails(defaultImagePath);
     }
 
     @FXML
-    private void handleDragOver(DragEvent event){
-        if(event.getDragboard().hasFiles()){
+    private void handleDragOver(DragEvent event) {
+        if (event.getDragboard().hasFiles()) {
             event.acceptTransferModes(TransferMode.ANY);
         }
     }
@@ -83,63 +85,64 @@ public class Controller implements Initializable {
     @FXML
     private void handleDrop(DragEvent event) {
         List<File> files = event.getDragboard().getFiles();
-        if(files != null){
+        if (files != null) {
             for (File file : files) {
                 lstImagesList.getItems().add(file.getAbsolutePath());
             }
-        } else{
+        } else {
             System.out.println("File is not valid");
         }
     }
 
     public void handleOnMouseClicked(MouseEvent mouseEvent) {
-        String selectedItem =  lstImagesList.getSelectionModel
-                ().getSelectedItem();
-        selectedIndex = lstImagesList.getSelectionModel
-                ().getSelectedIndex();
-        System.out.println(selectedItem);
+        String selectedItem = lstImagesList.getSelectionModel().getSelectedItem();
+        selectedIndex = lstImagesList.getSelectionModel().getSelectedIndex();
         showImageDetails(selectedItem);
     }
 
     public void deleteImage(ActionEvent actionEvent) {
-        lstImagesList.getItems().remove(selectedIndex);
+        String deletedItem = lstImagesList.getItems().remove(selectedIndex);
+        if (!lstImagesList.getItems().contains(deletedItem)) {
+            showImageDetails(defaultImagePath);
+        }
     }
 
     public void deleteAllImages(ActionEvent actionEvent) {
-        lstImagesList.getItems().removeAll
-                (lstImagesList.getItems());
+        lstImagesList.getItems().removeAll(lstImagesList.getItems());
+        showImageDetails(defaultImagePath);
     }
 
     public void browse(ActionEvent actionEvent) {
-        DirectoryChooser directoryChooser = new DirectoryChooser
-                ();
+        DirectoryChooser directoryChooser = new DirectoryChooser();
         File selectedFolder = directoryChooser.showDialog(null);
-        if(selectedFolder != null) {
+        if (selectedFolder != null) {
             lblOutputPath.setText(selectedFolder.getPath());
         }
     }
 
-    private void showImageDetails(String path){
-        if(path != null) {
+    private void showImageDetails(String path) {
+        if (path != null) {
             Image img = new Image("file:" + path);
             imgPreview.setImage(img);
 
-            String imageDimensions = (int) img.getHeight() + "x"
-                    + (int) img.getWidth();
+            String imageDimensions = (int) img.getHeight() + "x" + (int) img.getWidth();
             lbDimen.setText(imageDimensions);
 
             File file = new File(path);
             String fileName = file.getName();
-            String fileExtension = fileName.substring
-                    (fileName.lastIndexOf(".") + 1, file.getName
-                            ().length());
+            String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, file.getName().length());
             lbType.setText(fileExtension);
 
             double bytes = file.length();
-            String fileSize = String.format("%.2f", bytes / 1024)
-                    + " kb";
+            String fileSize = String.format("%.2f", bytes / 1024) + " kb";
             lbSize.setText(fileSize);
         }
     }
+
+    private void displayImage(String path) {
+        Image img = new Image("file:" + path);
+        imgPreview.setImage(img);
+    }
+
 }
 
