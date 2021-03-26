@@ -87,7 +87,10 @@ public class Controller implements Initializable {
         List<File> files = event.getDragboard().getFiles();
         if (files != null) {
             for (File file : files) {
-                lstImagesList.getItems().add(file.getAbsolutePath());
+                // If list of images does not contain the path, add it
+                if (!lstImagesList.getItems().contains(file.getAbsolutePath())) {
+                    lstImagesList.getItems().add(file.getAbsolutePath());
+                }
             }
         } else {
             System.out.println("File is not valid");
