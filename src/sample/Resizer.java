@@ -45,4 +45,14 @@ public class Resizer {
             e.printStackTrace();
         }
     }
+
+    public static String getExtension(String f) {
+        String extension = "";
+
+        int i = f.lastIndexOf('.');
+        if (i > 0) {
+            extension = f.substring(i + 1);
+        }
+        return extension;
+    }
 }
