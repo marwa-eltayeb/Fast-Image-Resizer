@@ -13,11 +13,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.stage.DirectoryChooser;
 
-import javax.lang.model.element.Element;
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static sample.Resizer.resizeImages;
 
 public class Controller implements Initializable {
 
@@ -73,6 +75,9 @@ public class Controller implements Initializable {
     private String defaultImagePath;
     private int selectedIndex;
 
+    private List<File> originalImages = new ArrayList<File>();
+    private File selectedFolder;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         lstImagesList.setPlaceholder(new Label("Drag & drop your photos here"));
@@ -81,12 +86,7 @@ public class Controller implements Initializable {
         showImageDetails(defaultImagePath);
 
         comboDir.setItems(listOfDirs);
-        String selectedDir = comboDir.getValue();
-
         comboSizes.setItems(defaultSizes);
-
-        String height = editHeight.getText();
-        String width = editWidth.getText();
 
         boolean ifRatioSelected = cbRatio.isSelected();
     }
@@ -100,9 +100,9 @@ public class Controller implements Initializable {
 
     @FXML
     private void handleDrop(DragEvent event) {
-        List<File> files = event.getDragboard().getFiles();
-        if (files != null) {
-            for (File file : files) {
+        originalImages = event.getDragboard().getFiles();
+        if (originalImages != null) {
+            for (File file : originalImages) {
                 // If list of images does not contain the path, add it
                 if (!lstImagesList.getItems().contains(file.getAbsolutePath())) {
                     lstImagesList.getItems().add(file.getAbsolutePath());
@@ -133,7 +133,7 @@ public class Controller implements Initializable {
 
     public void browse(ActionEvent actionEvent) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        File selectedFolder = directoryChooser.showDialog(null);
+        selectedFolder = directoryChooser.showDialog(null);
         if (selectedFolder != null) {
             lblOutputPath.setText(selectedFolder.getPath());
         }
@@ -158,10 +158,12 @@ public class Controller implements Initializable {
         }
     }
 
-    private void displayImage(String path) {
-        Image img = new Image("file:" + path);
-        imgPreview.setImage(img);
-    }
+    public void resize(ActionEvent actionEvent) {
+        String selectedDir = comboDir.getValue();
+        int width = Integer.parseInt(editWidth.getText().trim());
+        int height = Integer.parseInt(editHeight.getText().trim());
 
+        resizeImages(originalImages, selectedFolder.getPath(), width, height, "png",selectedDir);
+    }
 }
 
