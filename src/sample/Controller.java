@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.stage.DirectoryChooser;
 
+import javax.swing.*;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -134,10 +135,14 @@ public class Controller implements Initializable {
 
     public void browse(ActionEvent actionEvent) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
+        // Set Initial Directory as Documents
+        directoryChooser.setInitialDirectory(new JFileChooser().getFileSystemView().getDefaultDirectory());
         selectedFolder = directoryChooser.showDialog(null);
-        if (selectedFolder != null) {
-            lblOutputPath.setText(selectedFolder.getPath());
+        if (selectedFolder == null) {
+            // Get Documents path
+            selectedFolder = new JFileChooser().getFileSystemView().getDefaultDirectory().getAbsoluteFile();
         }
+        lblOutputPath.setText(selectedFolder.getPath());
     }
 
     private void showImageDetails(String path) {
