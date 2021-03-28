@@ -15,6 +15,12 @@ public class Resizer {
 
     public static void resizeImages(List<File> originalImages, String outputDirectory , int width, int height, String extension, String drawableDirectory) {
 
+        if (extension == null || extension.isEmpty()) {
+            extension = "png";
+        }else if(drawableDirectory == null || drawableDirectory.isEmpty()){
+            drawableDirectory = "drawable";
+        }
+
         try {
             for (File originalImage : originalImages) {
                 BufferedImage origBuffImg = ImageIO.read(originalImage);
