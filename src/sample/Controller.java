@@ -12,6 +12,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.stage.DirectoryChooser;
+import org.controlsfx.control.CheckComboBox;
 
 import javax.swing.*;
 import java.io.File;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static sample.Resizer.resizeImages;
+import static sample.Size.getSize;
 
 public class Controller implements Initializable {
 
@@ -55,7 +57,7 @@ public class Controller implements Initializable {
     Label lbDimen;
 
     @FXML
-    ComboBox<String> comboSizes;
+    CheckComboBox<String> comboBoxSizes;
 
     @FXML
     ComboBox<String> comboDir;
@@ -87,7 +89,8 @@ public class Controller implements Initializable {
         showImageDetails(defaultImagePath);
 
         comboDir.setItems(listOfDirs);
-        comboSizes.setItems(defaultSizes);
+        comboBoxSizes.setTitle("Default Sizes");
+        comboBoxSizes.getItems().addAll(defaultSizes);
 
         boolean ifRatioSelected = cbRatio.isSelected();
     }
@@ -149,6 +152,8 @@ public class Controller implements Initializable {
         if (path != null) {
             Image img = new Image("file:" + path);
             imgPreview.setImage(img);
+            // Indicates whether to preserve the aspect ratio of the source image when scaling to fit the image within the fitting bounding box.
+            imgPreview.setPreserveRatio(true);
 
             String imageDimensions = (int) img.getHeight() + "x" + (int) img.getWidth();
             lbDimen.setText(imageDimensions);
@@ -166,10 +171,17 @@ public class Controller implements Initializable {
 
     public void resize(ActionEvent actionEvent) {
         String selectedDir = comboDir.getValue();
-        int width = Integer.parseInt(editWidth.getText().trim());
-        int height = Integer.parseInt(editHeight.getText().trim());
+        //int width = Integer.parseInt(editWidth.getText().trim());
+        //int height = Integer.parseInt(editHeight.getText().trim());
 
-        resizeImages(originalImages, selectedFolder.getPath(), width, height, "png",selectedDir);
+        //resizeImages(originalImages, selectedFolder.getPath(), width, height, "png",selectedDir);
+
+        ObservableList<String> sizes = comboBoxSizes.getCheckModel().getCheckedItems();
+        for (String size: sizes) {
+            resizeImages(originalImages, selectedFolder.getPath(), getSize(size), getSize(size), "png",selectedDir);
+        }
+
+        System.out.println("Images Resized");
     }
 }
 
