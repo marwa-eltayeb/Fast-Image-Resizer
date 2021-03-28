@@ -4,6 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
+<?import org.controlsfx.control.CheckComboBox?>
 <AnchorPane prefHeight="500.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <Button fx:id="btnBrowse" layoutX="27.0" layoutY="23.0" mnemonicParsing="false" onAction="#browse" text="Browse" />
@@ -27,8 +28,8 @@
          <Label fx:id="lbDimen" layoutX="126.0" layoutY="228.0" text="dimension" />
       </AnchorPane>
       <ComboBox fx:id="comboDir" layoutX="519.0" layoutY="308.0" prefHeight="25.0" prefWidth="117.0" promptText="Drawable" />
-      <ComboBox fx:id="comboSizes" layoutX="374.0" layoutY="308.0" prefHeight="25.0" prefWidth="132.0" promptText="Default Sizes" />
-      <Label fx:id="lbtHeight" layoutX="374.0" layoutY="346.0" prefHeight="25.0" prefWidth="55.0" text="Custom:" />
+      <CheckComboBox fx:id="comboBoxSizes" layoutX="374.0" layoutY="308.0" prefHeight="25.0" prefWidth="134.0"/>
+      <Label layoutX="374.0" layoutY="346.0" prefHeight="25.0" prefWidth="55.0" text="Custom:" />
       <TextField fx:id="editHeight" layoutX="438.0" layoutY="346.0" prefHeight="25.0" prefWidth="75.0" promptText="height" />
       <TextField fx:id="editWidth" layoutX="533.0" layoutY="346.0" prefHeight="25.0" prefWidth="86.0" promptText="width" />
       <CheckBox fx:id="cbRatio" layoutX="374.0" layoutY="391.0" mnemonicParsing="false" text="Maintain Aspect Ratio" />
