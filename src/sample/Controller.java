@@ -100,12 +100,13 @@ public class Controller implements Initializable {
 
     @FXML
     private void handleDrop(DragEvent event) {
-        originalImages = event.getDragboard().getFiles();
-        if (originalImages != null) {
-            for (File file : originalImages) {
+        List<File> files = event.getDragboard().getFiles();
+        if(files != null){
+            for (File file : files) {
                 // If list of images does not contain the path, add it
                 if (!lstImagesList.getItems().contains(file.getAbsolutePath())) {
                     lstImagesList.getItems().add(file.getAbsolutePath());
+                    originalImages.add(file);
                 }
             }
         } else {
