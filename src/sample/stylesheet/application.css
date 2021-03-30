@@ -45,14 +45,32 @@
     -fx-text-fill: white;
     -fx-background-color : #4A4A4A;
     -fx-border-color: gray;
+    -fx-border-radius: 5;
+    -fx-border-insets: 1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0.0, 0, 3);
 }
 
+.button:hover {
+    -fx-background-color: #383838;
+    -fx-scale-y: 1.1;
+}
+
+.button:pressed {
+    -fx-scale-y: 0.9;
+    -fx-scale-x: 0.9;
+}
+
+/* #515151*/
 #btnResize{
     -fx-font-size: 12px;
     -fx-text-fill: red;
     -fx-background-color : #4A4A4A;
     -fx-border-color: gray;
     -fx-font-weight: bold;
+}
+
+#btnResize:hover{
+    -fx-background-color: #383838;
 }
 
 #editHeight, #editWidth{
@@ -113,4 +131,5 @@
 #comboBoxSizes .combo-box-popup > .list-view {
     -fx-pref-width: 133;
 }
+
 
