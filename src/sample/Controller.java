@@ -11,8 +11,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
+import sun.plugin.javascript.navig.Anchor;
 
 import javax.swing.*;
 import java.io.File;
@@ -26,6 +31,8 @@ import static sample.Size.getSize;
 
 public class Controller implements Initializable {
 
+    @FXML
+    AnchorPane anchoriId;
     @FXML
     Button btnBrowse;
 
@@ -72,7 +79,7 @@ public class Controller implements Initializable {
     CheckBox cbRatio;
 
     ObservableList<String> listOfDirs = FXCollections.observableArrayList("drawable", "mipmap");
-    ObservableList<String> defaultSizes = FXCollections.observableArrayList("ldpi 36x36", "mdpi 48x48", "tvdpi 64x64", "hdpi 72x72", "xhdpi 96x96", "xxhdpi 144x144", "xxxhdpi 192x192" );
+    ObservableList<String> defaultSizes = FXCollections.observableArrayList("ldpi 36x36", "mdpi 48x48", "tvdpi 64x64", "hdpi 72x72", "xhdpi 96x96", "xxhdpi 144x144", "xxxhdpi 192x192");
 
 
     private String defaultImagePath;
@@ -105,7 +112,7 @@ public class Controller implements Initializable {
     @FXML
     private void handleDrop(DragEvent event) {
         List<File> files = event.getDragboard().getFiles();
-        if(files != null){
+        if (files != null) {
             for (File file : files) {
                 // If list of images does not contain the path, add it
                 if (!lstImagesList.getItems().contains(file.getAbsolutePath())) {
@@ -125,9 +132,11 @@ public class Controller implements Initializable {
     }
 
     public void deleteImage(ActionEvent actionEvent) {
-        String deletedItem = lstImagesList.getItems().remove(selectedIndex);
-        if (!lstImagesList.getItems().contains(deletedItem)) {
-            showImageDetails(defaultImagePath);
+        if(lstImagesList.getItems().size() != 0) {
+            String deletedItem = lstImagesList.getItems().remove(selectedIndex);
+            if (!lstImagesList.getItems().contains(deletedItem)) {
+                showImageDetails(defaultImagePath);
+            }
         }
     }
 
@@ -138,9 +147,10 @@ public class Controller implements Initializable {
 
     public void browse(ActionEvent actionEvent) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
+        Stage stage = (Stage) anchoriId.getScene().getWindow();
         // Set Initial Directory as Documents
         directoryChooser.setInitialDirectory(new JFileChooser().getFileSystemView().getDefaultDirectory());
-        selectedFolder = directoryChooser.showDialog(null);
+        selectedFolder = directoryChooser.showDialog(stage);
         if (selectedFolder == null) {
             // Get Documents path
             selectedFolder = new JFileChooser().getFileSystemView().getDefaultDirectory().getAbsoluteFile();
@@ -171,16 +181,10 @@ public class Controller implements Initializable {
 
     public void resize(ActionEvent actionEvent) {
         String selectedDir = comboDir.getValue();
-        //int width = Integer.parseInt(editWidth.getText().trim());
-        //int height = Integer.parseInt(editHeight.getText().trim());
+        int width = Integer.parseInt(editWidth.getText().trim());
+        int height = Integer.parseInt(editHeight.getText().trim());
 
-        //resizeImages(originalImages, selectedFolder.getPath(), width, height, "png",selectedDir);
-
-        ObservableList<String> sizes = comboBoxSizes.getCheckModel().getCheckedItems();
-        for (String size: sizes) {
-            resizeImages(originalImages, selectedFolder.getPath(), getSize(size), getSize(size), "png",selectedDir);
-        }
-
+        resizeImages(originalImages, selectedFolder.getPath(), width, height,selectedDir);
         System.out.println("Images Resized");
     }
 }

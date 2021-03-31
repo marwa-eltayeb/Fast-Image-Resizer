@@ -13,11 +13,9 @@ import java.util.List;
 
 public class Resizer {
 
-    public static void resizeImages(List<File> originalImages, String outputDirectory , int width, int height, String extension, String drawableDirectory) {
+    public static void resizeImages(List<File> originalImages, String outputDirectory , int width, int height, String drawableDirectory) {
 
-        if (extension == null || extension.isEmpty()) {
-            extension = "png";
-        }else if(drawableDirectory == null || drawableDirectory.isEmpty()){
+        if(drawableDirectory == null || drawableDirectory.isEmpty()){
             drawableDirectory = "drawable";
         }
 
@@ -43,8 +41,8 @@ public class Resizer {
                 Files.createDirectories(path);
 
                 String fileNameWithOutExt = originalImage.getName().substring(0, originalImage.getName().lastIndexOf("."));
-                String newFile = finalPath + fileNameWithOutExt + "_" + width + "x" + height + "." + extension;
-                ImageIO.write(resizedBuffImg, extension, new File(newFile));
+                String newFile = finalPath + fileNameWithOutExt + "_" + width + "x" + height + "." + getExtension(originalImage.getAbsolutePath());
+                ImageIO.write(resizedBuffImg, getExtension(originalImage.getAbsolutePath()), new File(newFile));
             }
 
         } catch (IOException e) {
