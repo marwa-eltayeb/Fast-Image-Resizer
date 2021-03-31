@@ -106,13 +106,17 @@ public class Controller implements Initializable {
 
     @FXML
     private void handleDrop(DragEvent event) {
+        Set<String> acceptedExtensions = new HashSet<>(Arrays.asList("png", "jpg", "jpeg", "gif"));
         List<File> files = event.getDragboard().getFiles();
         if (files != null) {
             for (File file : files) {
-                // If list of images does not contain the path, add it
-                if (!lstImagesList.getItems().contains(file.getAbsolutePath())) {
-                    lstImagesList.getItems().add(file.getAbsolutePath());
-                    originalImages.add(file);
+                final String extension = getExtension(file.getName());
+                if (acceptedExtensions.contains(extension)) {
+                    // If list of images does not contain the path, add it
+                    if (!lstImagesList.getItems().contains(file.getAbsolutePath())) {
+                        lstImagesList.getItems().add(file.getAbsolutePath());
+                        originalImages.add(file);
+                    }
                 }
             }
         } else {
