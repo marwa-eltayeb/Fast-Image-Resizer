@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import org.controlsfx.control.CheckComboBox?>
-<AnchorPane prefHeight="500.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane fx:id="anchoriId" prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <Button fx:id="btnBrowse" layoutX="27.0" layoutY="23.0" mnemonicParsing="false" onAction="#browse" text="Browse" />
       <Label fx:id="lblOutputPath" layoutX="91.0" layoutY="23.0" prefHeight="27.0" prefWidth="260.0" text="Output Directory Path" />
@@ -32,6 +32,5 @@
       <Label layoutX="374.0" layoutY="346.0" prefHeight="25.0" prefWidth="55.0" text="Custom:" />
       <TextField fx:id="editHeight" layoutX="438.0" layoutY="346.0" prefHeight="25.0" prefWidth="75.0" promptText="height" />
       <TextField fx:id="editWidth" layoutX="533.0" layoutY="346.0" prefHeight="25.0" prefWidth="86.0" promptText="width" />
-      <CheckBox fx:id="cbRatio" layoutX="374.0" layoutY="391.0" mnemonicParsing="false" text="Maintain Aspect Ratio" />
    </children>
 </AnchorPane>

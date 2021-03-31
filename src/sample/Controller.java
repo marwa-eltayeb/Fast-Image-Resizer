@@ -12,20 +12,16 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
-import sun.plugin.javascript.navig.Anchor;
 
 import javax.swing.*;
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
+import static sample.Resizer.getExtension;
 import static sample.Resizer.resizeImages;
 import static sample.Size.getSize;
 
@@ -83,9 +79,10 @@ public class Controller implements Initializable {
 
 
     private String defaultImagePath;
+    private String selectedItem;
     private int selectedIndex;
 
-    private List<File> originalImages = new ArrayList<File>();
+    private final List<File> originalImages = new ArrayList<File>();
     private File selectedFolder;
 
     @Override
@@ -98,8 +95,6 @@ public class Controller implements Initializable {
         comboDir.setItems(listOfDirs);
         comboBoxSizes.setTitle("Default Sizes");
         comboBoxSizes.getItems().addAll(defaultSizes);
-
-        boolean ifRatioSelected = cbRatio.isSelected();
     }
 
     @FXML
@@ -124,16 +119,18 @@ public class Controller implements Initializable {
             System.out.println("File is not valid");
         }
     }
-
+    
     public void handleOnMouseClicked(MouseEvent mouseEvent) {
-        String selectedItem = lstImagesList.getSelectionModel().getSelectedItem();
+        selectedItem = lstImagesList.getSelectionModel().getSelectedItem();
         selectedIndex = lstImagesList.getSelectionModel().getSelectedIndex();
         showImageDetails(selectedItem);
     }
 
     public void deleteImage(ActionEvent actionEvent) {
-        if(lstImagesList.getItems().size() != 0) {
+        if(selectedItem != null) {
             String deletedItem = lstImagesList.getItems().remove(selectedIndex);
+            originalImages.remove(selectedIndex);
+            selectedItem = null;
             if (!lstImagesList.getItems().contains(deletedItem)) {
                 showImageDetails(defaultImagePath);
             }
@@ -181,11 +178,55 @@ public class Controller implements Initializable {
 
     public void resize(ActionEvent actionEvent) {
         String selectedDir = comboDir.getValue();
-        int width = Integer.parseInt(editWidth.getText().trim());
-        int height = Integer.parseInt(editHeight.getText().trim());
+        ObservableList<String> defaultSizes = comboBoxSizes.getCheckModel().getCheckedItems();
 
-        resizeImages(originalImages, selectedFolder.getPath(), width, height,selectedDir);
-        System.out.println("Images Resized");
+        String widthStr = editWidth.getText();
+        String heightStr = editHeight.getText();
+
+        if (!widthStr.isEmpty() && !heightStr.isEmpty()) {
+
+            if(!widthStr.matches("\\d*") || !heightStr.matches("\\d*")){
+                showError();
+                return;
+            }
+
+            int width = Integer.parseInt(widthStr);
+            int height = Integer.parseInt(heightStr);
+
+            if (selectedFolder == null) {
+                showWarning("Please Select a destination folder first!");
+                return;
+            }
+
+            resizeImages(originalImages, selectedFolder.getPath(), width, height, selectedDir);
+
+        } else if (defaultSizes.size() != 0) {
+
+            if (selectedFolder == null) {
+                showWarning("Please Select a destination folder first!");
+                return;
+            }
+
+            for (String size : defaultSizes) {
+                resizeImages(originalImages, selectedFolder.getPath(), getSize(size), getSize(size), selectedDir);
+            }
+
+        }else {
+            showWarning("You must choose a certain size or make a custom size");
+        }
     }
+
+    private void showWarning(String text) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, text, ButtonType.OK);
+        alert.initOwner(anchoriId.getScene().getWindow());
+        alert.showAndWait();
+    }
+
+    private void showError() {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Dimensions must be positive integers", ButtonType.OK);
+        alert.initOwner(anchoriId.getScene().getWindow());
+        alert.showAndWait();
+    }
+
 }
 
