@@ -18,7 +18,11 @@ import org.controlsfx.control.CheckComboBox;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.*;
 
 import static sample.Resizer.getExtension;
@@ -71,12 +75,8 @@ public class Controller implements Initializable {
     @FXML
     TextField editWidth;
 
-    @FXML
-    CheckBox cbRatio;
-
     ObservableList<String> listOfDirs = FXCollections.observableArrayList("drawable", "mipmap");
     ObservableList<String> defaultSizes = FXCollections.observableArrayList("ldpi 36x36", "mdpi 48x48", "tvdpi 64x64", "hdpi 72x72", "xhdpi 96x96", "xxhdpi 144x144", "xxxhdpi 192x192");
-
 
     private String defaultImagePath;
     private String selectedItem;
@@ -89,7 +89,7 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         lstImagesList.setPlaceholder(new Label("Drag & drop your photos here"));
 
-        defaultImagePath = "src/sample/assets/preview.png";
+        defaultImagePath = "sample/assets/preview.png";
         showImageDetails(defaultImagePath);
 
         comboDir.setItems(listOfDirs);
@@ -159,17 +159,25 @@ public class Controller implements Initializable {
         lblOutputPath.setText(selectedFolder.getPath());
     }
 
+
     private void showImageDetails(String path) {
         if (path != null) {
-            Image img = new Image("file:" + path);
+            File file;
+            Image img;
+            if(path.equals(defaultImagePath)){
+                file = new File("src/" + path);
+                img = new Image(path);
+            }else {
+                file =  new File(path);
+                img = new Image(file.toURI().toString());
+            }
+
             imgPreview.setImage(img);
-            // Indicates whether to preserve the aspect ratio of the source image when scaling to fit the image within the fitting bounding box.
             imgPreview.setPreserveRatio(true);
 
             String imageDimensions = (int) img.getHeight() + "x" + (int) img.getWidth();
             lbDimen.setText(imageDimensions);
 
-            File file = new File(path);
             String fileName = file.getName();
             String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, file.getName().length());
             lbType.setText(fileExtension);

@@ -12,11 +12,10 @@
     -fx-background-color: #3b3b3b;
 }
 
-
 .label{
    -fx-text-fill: white;
    -fx-background-color : #1E1E1E;
-   -fx-padding: 3 3 3 3;
+   -fx-padding: 3 3 3 5;
 }
 
 #lbtHeight, #lbWidth{
@@ -60,7 +59,6 @@
     -fx-scale-x: 0.9;
 }
 
-/* #515151*/
 #btnResize{
     -fx-font-size: 12px;
     -fx-text-fill: red;
@@ -84,21 +82,6 @@
 
 #lstImagesList{
    -fx-background-color: #1E1E1E;
-}
-
-#cbRatio {
-    -fx-text-fill: white;
-    -fx-padding: 1 1 1 1;
-}
-
-#cbRatio > .box {
-    /* background color of unselected checkbox */
-    -fx-background-color: #1E1E1E;
-}
-
-#cbRatio:selected > .box > .mark {
-    /* modify mark color */
-    -fx-background-color: white;
 }
 
 .combo-box {
