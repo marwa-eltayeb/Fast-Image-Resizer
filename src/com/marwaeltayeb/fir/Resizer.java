@@ -1,4 +1,4 @@
-package sample;
+package com.marwaeltayeb.fir;
 
 import javax.imageio.ImageIO;
 

@@ -1,4 +1,4 @@
-package sample;
+package com.marwaeltayeb.fir;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,16 +18,12 @@ import org.controlsfx.control.CheckComboBox;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
 import java.util.*;
 
-import static sample.Resizer.getExtension;
-import static sample.Resizer.resizeImages;
-import static sample.Size.getSize;
+import static com.marwaeltayeb.fir.Resizer.getExtension;
+import static com.marwaeltayeb.fir.Resizer.resizeImages;
+import static com.marwaeltayeb.fir.Size.getSize;
 
 public class Controller implements Initializable {
 
@@ -89,7 +85,7 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         lstImagesList.setPlaceholder(new Label("Drag & drop your photos here"));
 
-        defaultImagePath = "sample/assets/preview.png";
+        defaultImagePath = "com/marwaeltayeb/fir/assets/preview.png";
         showImageDetails(defaultImagePath);
 
         comboDir.setItems(listOfDirs);
