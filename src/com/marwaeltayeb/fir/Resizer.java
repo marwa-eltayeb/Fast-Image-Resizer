@@ -57,6 +57,6 @@ public class Resizer {
         if (i > 0) {
             extension = f.substring(i + 1);
         }
-        return extension;
+        return extension.toLowerCase();
     }
 }
