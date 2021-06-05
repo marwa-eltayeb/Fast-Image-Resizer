@@ -110,7 +110,7 @@
     -fx-background-color: #333333;
 }
 
-/** Size the combo-box drop down list. */
+/** ImageSizeUtils the combo-box drop down list. */
 #comboBoxSizes .combo-box-popup > .list-view {
     -fx-pref-width: 133;
 }

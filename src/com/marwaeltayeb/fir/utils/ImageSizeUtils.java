@@ -1,6 +1,6 @@
-package com.marwaeltayeb.fir;
+package com.marwaeltayeb.fir.utils;
 
-public class Size {
+public class ImageSizeUtils {
 
     public static int getSize(String key){
         switch(key) {

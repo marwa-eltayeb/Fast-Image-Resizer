@@ -1,15 +1,13 @@
-package com.marwaeltayeb.fir;
+package com.marwaeltayeb.fir.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
@@ -21,64 +19,38 @@ import java.io.File;
 import java.net.URL;
 import java.util.*;
 
-import static com.marwaeltayeb.fir.Resizer.getExtension;
-import static com.marwaeltayeb.fir.Resizer.resizeImages;
-import static com.marwaeltayeb.fir.Size.getSize;
+import static com.marwaeltayeb.fir.utils.Resizer.getExtension;
+import static com.marwaeltayeb.fir.utils.Resizer.resizeImages;
+import static com.marwaeltayeb.fir.utils.ImageSizeUtils.getSize;
 
-public class Controller implements Initializable {
+public class MainController implements Initializable {
 
-    @FXML
-    AnchorPane anchoriId;
-    @FXML
-    Button btnBrowse;
+    @FXML private AnchorPane anchorId;
 
-    @FXML
-    Label lblOutputPath;
+    @FXML private Label lblOutputPath;
+    @FXML private ListView<String> lstImagesList;
 
-    @FXML
-    ListView<String> lstImagesList;
+    @FXML private ImageView imgPreview;
 
-    @FXML
-    Button btnDelete;
+    @FXML private Label lbType;
+    @FXML private Label lbSize;
+    @FXML private Label lbDimen;
 
-    @FXML
-    Button btnDeleteAll;
+    @FXML private CheckComboBox<String> comboBoxSizes;
+    @FXML private ComboBox<String> comboDir;
 
-    @FXML
-    Button btnResize;
+    @FXML private TextField editHeight;
+    @FXML private TextField editWidth;
 
-    @FXML
-    ImageView imgPreview;
-
-    @FXML
-    Label lbType;
-
-    @FXML
-    Label lbSize;
-
-    @FXML
-    Label lbDimen;
-
-    @FXML
-    CheckComboBox<String> comboBoxSizes;
-
-    @FXML
-    ComboBox<String> comboDir;
-
-    @FXML
-    TextField editHeight;
-
-    @FXML
-    TextField editWidth;
-
-    ObservableList<String> listOfDirs = FXCollections.observableArrayList("drawable", "mipmap");
-    ObservableList<String> defaultSizes = FXCollections.observableArrayList("ldpi 36x36", "mdpi 48x48", "tvdpi 64x64", "hdpi 72x72", "xhdpi 96x96", "xxhdpi 144x144", "xxxhdpi 192x192");
+    private final ObservableList<String> listOfDirs = FXCollections.observableArrayList("drawable", "mipmap");
+    private final ObservableList<String> defaultSizes = FXCollections.observableArrayList("ldpi 36x36", "mdpi 48x48", "tvdpi 64x64", "hdpi 72x72", "xhdpi 96x96", "xxhdpi 144x144", "xxxhdpi 192x192");
+    private final Set<String> acceptedExtensions = new HashSet<>(Arrays.asList("png", "jpg", "jpeg", "gif"));
 
     private String defaultImagePath;
     private String selectedItem;
     private int selectedIndex;
 
-    private final List<File> originalImages = new ArrayList<File>();
+    private final List<File> originalImages = new ArrayList<>();
     private File selectedFolder;
 
     @Override
@@ -102,34 +74,40 @@ public class Controller implements Initializable {
 
     @FXML
     private void handleDrop(DragEvent event) {
-        Set<String> acceptedExtensions = new HashSet<>(Arrays.asList("png", "jpg", "jpeg", "gif"));
         List<File> files = event.getDragboard().getFiles();
-        if (files != null) {
-            for (File file : files) {
-                final String extension = getExtension(file.getName());
-                if (acceptedExtensions.contains(extension)) {
-                    // If list of images does not contain the path, add it
-                    if (!lstImagesList.getItems().contains(file.getAbsolutePath())) {
-                        lstImagesList.getItems().add(file.getAbsolutePath());
-                        originalImages.add(file);
-                    }
+
+        if (files == null) {
+            System.out.println("File is not valid");
+            return;
+        }
+
+        for (File file : files) {
+            final String extension = getExtension(file.getName());
+            ObservableList<String> imageList = lstImagesList.getItems();
+            if (acceptedExtensions.contains(extension)) {
+                // If list of images does not contain the path, add it
+                if (!imageList.contains(file.getAbsolutePath())) {
+                    imageList.add(file.getAbsolutePath());
+                    originalImages.add(file);
                 }
             }
-        } else {
-            System.out.println("File is not valid");
         }
+
+        event.setDropCompleted(true);
+        event.consume();
     }
-    
-    public void handleOnMouseClicked(MouseEvent mouseEvent) {
+
+    @FXML private void handleOnMouseClicked() {
         selectedItem = lstImagesList.getSelectionModel().getSelectedItem();
         selectedIndex = lstImagesList.getSelectionModel().getSelectedIndex();
         showImageDetails(selectedItem);
     }
 
-    public void deleteImage(ActionEvent actionEvent) {
+    @FXML private void deleteImage() {
         if(selectedItem != null) {
             String deletedItem = lstImagesList.getItems().remove(selectedIndex);
             originalImages.remove(selectedIndex);
+            // No item is selected after deletion
             selectedItem = null;
             if (!lstImagesList.getItems().contains(deletedItem)) {
                 showImageDetails(defaultImagePath);
@@ -137,14 +115,14 @@ public class Controller implements Initializable {
         }
     }
 
-    public void deleteAllImages(ActionEvent actionEvent) {
+    @FXML private void deleteAllImages() {
         lstImagesList.getItems().removeAll(lstImagesList.getItems());
         showImageDetails(defaultImagePath);
     }
 
-    public void browse(ActionEvent actionEvent) {
+    @FXML private void browse() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        Stage stage = (Stage) anchoriId.getScene().getWindow();
+        Stage stage = (Stage) anchorId.getScene().getWindow();
         // Set Initial Directory as Documents
         directoryChooser.setInitialDirectory(new JFileChooser().getFileSystemView().getDefaultDirectory());
         selectedFolder = directoryChooser.showDialog(stage);
@@ -184,7 +162,7 @@ public class Controller implements Initializable {
         }
     }
 
-    public void resize(ActionEvent actionEvent) {
+    @FXML private void resize() {
         String selectedDir = comboDir.getValue();
         ObservableList<String> defaultSizes = comboBoxSizes.getCheckModel().getCheckedItems();
 
@@ -216,7 +194,8 @@ public class Controller implements Initializable {
             }
 
             for (String size : defaultSizes) {
-                resizeImages(originalImages, selectedFolder.getPath(), getSize(size), getSize(size), selectedDir);
+                int imageSize = getSize(size);
+                resizeImages(originalImages, selectedFolder.getPath(),imageSize, imageSize, selectedDir);
             }
 
         }else {
@@ -226,13 +205,13 @@ public class Controller implements Initializable {
 
     private void showWarning(String text) {
         Alert alert = new Alert(Alert.AlertType.WARNING, text, ButtonType.OK);
-        alert.initOwner(anchoriId.getScene().getWindow());
+        alert.initOwner(anchorId.getScene().getWindow());
         alert.showAndWait();
     }
 
     private void showError() {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Dimensions must be positive integers", ButtonType.OK);
-        alert.initOwner(anchoriId.getScene().getWindow());
+        alert.initOwner(anchorId.getScene().getWindow());
         alert.showAndWait();
     }
 
