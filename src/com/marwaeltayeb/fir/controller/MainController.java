@@ -139,7 +139,7 @@ public class MainController implements Initializable {
             File file;
             Image img;
             if(path.equals(defaultImagePath)){
-                file = new File("src/" + path);
+                file = new File("../src/" + path);
                 img = new Image(path);
             }else {
                 file =  new File(path);
