@@ -18,7 +18,8 @@ public class ImageSizeUtils {
                 return 144;
             case "xxxhdpi 192x192":
                 return 192;
+            default:
+                return 0;
         }
-        return 0;
     }
 }

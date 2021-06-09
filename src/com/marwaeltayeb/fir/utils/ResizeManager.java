@@ -11,12 +11,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class Resizer {
+public class ResizeManager {
 
     public static void resizeImages(List<File> originalImages, String outputDirectory , int width, int height, String drawableDirectory) {
 
+        String directory = drawableDirectory;
         if(drawableDirectory == null || drawableDirectory.isEmpty()){
-            drawableDirectory = "drawable";
+            directory = "drawable";
         }
 
         try {
@@ -30,10 +31,10 @@ public class Resizer {
                 g.dispose();
 
                 String finalPath;
-                if (drawableDirectory.equalsIgnoreCase("mipmap")) {
-                    finalPath = outputDirectory + "/res-" + drawableDirectory + "/mipmap-" + width + "x" + height + "/" + originalImage.getName();
+                if (directory.equalsIgnoreCase("mipmap")) {
+                    finalPath = outputDirectory + "/res-" + directory + "/mipmap-" + width + "x" + height + "/" + originalImage.getName();
                 } else {
-                    finalPath = outputDirectory + "/res-" + drawableDirectory + "/drawable-" + width + "x" + height + "/";
+                    finalPath = outputDirectory + "/res-" + directory + "/drawable-" + width + "x" + height + "/";
                 }
 
                 Path path = Paths.get(finalPath);

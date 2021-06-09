@@ -19,8 +19,8 @@ import java.io.File;
 import java.net.URL;
 import java.util.*;
 
-import static com.marwaeltayeb.fir.utils.Resizer.getExtension;
-import static com.marwaeltayeb.fir.utils.Resizer.resizeImages;
+import static com.marwaeltayeb.fir.utils.ResizeManager.getExtension;
+import static com.marwaeltayeb.fir.utils.ResizeManager.resizeImages;
 import static com.marwaeltayeb.fir.utils.ImageSizeUtils.getSize;
 
 public class MainController implements Initializable {
