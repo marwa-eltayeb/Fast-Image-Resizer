@@ -1,5 +1,5 @@
 .root {
-    -fx-background-color: #3C3C3C;
+    -fx-background-color: #3c3c3c;
 }
 
 #lstImagesList .list-cell {
@@ -13,13 +13,13 @@
 
 .label {
     -fx-text-fill: white;
-    -fx-background-color: #1E1E1E;
+    -fx-background-color: #1e1e1e;
     -fx-padding: 3 3 3 5;
 }
 
 #lbtHeight, #lbWidth {
     -fx-text-fill: white;
-    -fx-background-color: #1E1E1E;
+    -fx-background-color: #1e1e1e;
     -fx-padding: 3 3 3 3;
     -fx-border-color: black;
     -fx-border-radius: 1;
@@ -28,7 +28,7 @@
 
 #lblOutputPath {
     -fx-font-size: 10px;
-    -fx-background-color: #4A4A4A;
+    -fx-background-color: #4a4a4a;
     -fx-border-color: gray;
     -fx-border-radius: 1;
     -fx-border-width: 1;
@@ -41,7 +41,7 @@
 
 .button {
     -fx-text-fill: white;
-    -fx-background-color: #4A4A4A;
+    -fx-background-color: #4a4a4a;
     -fx-border-color: gray;
     -fx-border-radius: 5;
     -fx-border-insets: 1;
@@ -61,7 +61,7 @@
 #btnResize {
     -fx-font-size: 12px;
     -fx-text-fill: red;
-    -fx-background-color: #4A4A4A;
+    -fx-background-color: #4a4a4a;
     -fx-border-color: gray;
     -fx-font-weight: bold;
 }
@@ -71,16 +71,16 @@
 }
 
 #editHeight, #editWidth {
-    -fx-background-color: #4A4A4A;
+    -fx-background-color: #4a4a4a;
     -fx-text-fill: white;
 }
 
 #imageContainer {
-    -fx-background-color: #1E1E1E;
+    -fx-background-color: #1e1e1e;
 }
 
 #lstImagesList {
-    -fx-background-color: #1E1E1E;
+    -fx-background-color: #1e1e1e;
 }
 
 .combo-box {
@@ -98,7 +98,7 @@
 }
 
 .combo-box .list-cell {
-    -fx-background-color: #1E1E1E;
+    -fx-background-color: #1e1e1e;
 }
 
 .combo-box-popup .list-view .list-cell:hover {
