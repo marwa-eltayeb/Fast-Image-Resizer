@@ -12,10 +12,11 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("ui/main.fxml"));
-        primaryStage.setTitle("Fast Image ResizeManager");
+        primaryStage.setTitle("Fast Image Resizer");
         primaryStage.setScene(new Scene(root, 650, 400));
         primaryStage.getIcons().add(new Image("/com/marwaeltayeb/fir/assets/logo.png"));
         primaryStage.getScene().getStylesheets().add(getClass().getResource("stylesheet/application.css").toExternalForm());
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
