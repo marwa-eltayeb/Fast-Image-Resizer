@@ -67,8 +67,12 @@ public class MainController implements Initializable {
 
     @FXML
     private void handleDragOver(DragEvent event) {
-        if (event.getDragboard().hasFiles()) {
-            event.acceptTransferModes(TransferMode.ANY);
+        List<File> files = event.getDragboard().getFiles();
+        for (File file : files) {
+            final String extension = getExtension(file.getName());
+            if (acceptedExtensions.contains(extension)) {
+                event.acceptTransferModes(TransferMode.ANY);
+            }
         }
     }
 
@@ -185,7 +189,6 @@ public class MainController implements Initializable {
             }
 
             resizeImages(originalImages, selectedFolder.getPath(), width, height, selectedDir);
-
         } else if (defaultSizes.size() != 0) {
 
             if (selectedFolder == null) {

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import org.controlsfx.control.CheckComboBox?>
-<AnchorPane fx:id="anchorId" prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.marwaeltayeb.fir.controller.MainController">
+<AnchorPane fx:id="anchorId" prefHeight="385.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.marwaeltayeb.fir.controller.MainController">
    <children>
       <Button fx:id="btnBrowse" layoutX="27.0" layoutY="23.0" mnemonicParsing="false" onAction="#browse" text="Browse" />
       <Label fx:id="lblOutputPath" layoutX="91.0" layoutY="23.0" prefHeight="27.0" prefWidth="260.0" text="Output Directory Path" />
