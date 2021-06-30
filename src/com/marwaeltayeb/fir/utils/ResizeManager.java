@@ -32,7 +32,7 @@ public class ResizeManager {
 
                 String finalPath;
                 if (directory.equalsIgnoreCase("mipmap")) {
-                    finalPath = outputDirectory + "/res-" + directory + "/mipmap-" + width + "x" + height + "/" + originalImage.getName();
+                    finalPath = outputDirectory + "/res-" + directory + "/mipmap-" + width + "x" + height + "/";
                 } else {
                     finalPath = outputDirectory + "/res-" + directory + "/drawable-" + width + "x" + height + "/";
                 }
