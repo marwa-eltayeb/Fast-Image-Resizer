@@ -189,6 +189,8 @@ public class MainController implements Initializable {
             }
 
             resizeImages(originalImages, selectedFolder.getPath(), width, height, selectedDir);
+            editHeight.setText("");
+            editWidth.setText("");
         } else if (defaultSizes.size() != 0) {
 
             if (selectedFolder == null) {
