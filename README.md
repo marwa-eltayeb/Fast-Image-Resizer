@@ -25,3 +25,6 @@ After adding your images, it will be like that.
 
 ![Image Resize Service](https://i.imgur.com/tmM0eMc.png)
 
+Project Preview: [Youtube](https://www.youtube.com/watch?v=nyUq86hF8dM).
+
+
