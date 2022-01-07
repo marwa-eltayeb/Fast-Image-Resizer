@@ -4,6 +4,7 @@
 [![Download Fast Image Resizer](https://sourceforge.net/sflogo.php?type=14&group_id=3352327)](https://sourceforge.net/p/fastimageresizer/)
 [![Min JDK Version](https://img.shields.io/badge/Required%20JDK-%2B8-brightgreen)](https://jdk.java.net/java-se-ri/8-MR3)
 [![Download Fast Image Resizer](https://img.shields.io/sourceforge/dt/fastimageresizer.svg)](https://sourceforge.net/projects/fastimageresizer/files/latest/download)
+[![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-Fast%20Image%20Resizer-green.svg?style=flat )]( https://android-arsenal.com/details/1/8320 )
 
 Javafx application to resize images and add them into folders automatically. It is a powerful Cross-Platform tool for Android developers.
 
